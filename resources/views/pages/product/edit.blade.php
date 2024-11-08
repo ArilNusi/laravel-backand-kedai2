@@ -85,8 +85,8 @@
                                     <select class="form-control selectric @error('category') is-invalid @enderror"
                                             name="category">
                                         <option value="food" {{ old('category', $product->category) === 'food' ? 'selected' : '' }}>Food</option>
-                                        <option value="drink" {{ old('category', $product->category) === 'drink' ? 'selected' : '' }}>Drink</option>
-                                        <option value="snack" {{ old('category', $product->category) === 'snack' ? 'selected' : '' }}>Snack</option>
+                                        <option value="drinks" {{ old('category', $product->category) === 'drinks' ? 'selected' : '' }}>Drink</option>
+                                        <option value="snacks" {{ old('category', $product->category) === 'snacks' ? 'selected' : '' }}>Snack</option>
                                     </select>
                                     @error('category')
                                         <div class="invalid-feedback">
@@ -111,7 +111,7 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
-                            </div>      
+                            </div>
 
 
 
