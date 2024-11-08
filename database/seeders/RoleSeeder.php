@@ -9,24 +9,13 @@ class RoleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     *
+     * @return void
      */
     public function run()
     {
-        // Buat peran admin
-        Role::create([
-            'name' => 'admin',
-            'guard_name' => 'web', // Pastikan nama kolomnya benar
-        ]);
-
-        // Buat peran user
-        Role::create([
-            'name' => 'user',
-            'guard_name' => 'web', // Pastikan nama kolomnya benar
-        ]);
-        // Buat peran user
-        Role::create([
-            'name' => 'staff',
-            'guard_name' => 'web', // Pastikan nama kolomnya benar
-        ]);
+        Role::create(['name' => 'admin', 'guard_name' => 'web']);
+        Role::create(['name' => 'staff', 'guard_name' => 'web']);
+        Role::create(['name' => 'user', 'guard_name' => 'web']);
     }
 }

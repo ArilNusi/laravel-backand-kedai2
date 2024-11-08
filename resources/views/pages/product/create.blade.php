@@ -84,11 +84,11 @@
                                         <span class="selectgroup-button">Food</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="category" value="drink" class="selectgroup-input">
+                                        <input type="radio" name="category" value="drinks" class="selectgroup-input">
                                         <span class="selectgroup-button">Drink</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="category" value="snack" class="selectgroup-input">
+                                        <input type="radio" name="category" value="snacks" class="selectgroup-input">
                                         <span class="selectgroup-button">Snack</span>
                                     </label>
 

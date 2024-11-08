@@ -7,14 +7,30 @@ use Illuminate\Support\Facades\Auth;
 
 class RoleMiddleware
 {
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @param  mixed  ...$roles
+     * @return mixed
+     */
     public function handle($request, Closure $next, ...$roles)
     {
-        $userRole = Auth::user()->role; // Pastikan ada kolom `role` di tabel `users`
-
-        if (in_array($userRole, $roles)) {
-            return $next($request);
+        // Periksa apakah pengguna sudah login
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Anda harus login terlebih dahulu.');
         }
 
-        return redirect('/home')->with('error', "Anda tidak memiliki akses");
+        $user = Auth::user();
+
+        // Periksa apakah role pengguna termasuk dalam array roles
+        if (!in_array($user->role, $roles)) {
+            return redirect()->route('home')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
+        }
+
+        return $next($request);
+
     }
+
 }

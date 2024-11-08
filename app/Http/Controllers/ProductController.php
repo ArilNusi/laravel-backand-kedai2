@@ -33,7 +33,7 @@ class ProductController extends Controller
             'name' => 'required|min:3|unique:products,name',
             'price' => 'required|integer',
             'stock' => 'required|integer',
-            'category' => 'required|in:food,drink,snack',
+            'category' => 'required|in:food,drinks,snacks',
             'image' => 'required|image|mimes:png,jpg,jpeg'
         ]);
 
@@ -65,7 +65,7 @@ class ProductController extends Controller
             'name' => 'required|min:3|unique:products,name,' . $id,
             'price' => 'required|integer',
             'stock' => 'required|integer',
-            'category' => 'required|in:food,drink,snack',
+            'category' => 'required|in:food,drinks,snacks',
             'image' => 'nullable|image|mimes:png,jpg,jpeg'
         ]);
 

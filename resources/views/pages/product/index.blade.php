@@ -60,7 +60,7 @@
                                         </tr>
                                         @foreach ($products as $product)
                                             <tr>
-                                            
+
                                              <td>{{ $product->name }}
                                                 </td>
                                                 <td>{{ $product->category }}

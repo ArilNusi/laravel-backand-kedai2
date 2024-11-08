@@ -24,23 +24,21 @@
             <div class="section-body">
                 <div class="row">
                     <div class="col-12">
-                        @include('layouts.alert')
+                        @include('layouts.alert') <!-- Menampilkan alert jika ada -->
                     </div>
                 </div>
-
 
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
-
                             <div class="card-body">
 
                                 <div class="float-right">
                                     <form method="GET" action="{{ route('user.index') }}">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search" name="name">
+                                            <input type="text" class="form-control" placeholder="Search" name="name" value="{{ request()->input('name') }}">
                                             <div class="input-group-append">
-                                                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                                <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
                                             </div>
                                         </div>
                                     </form>
@@ -49,60 +47,47 @@
                                 <div class="clearfix mb-3"></div>
 
                                 <div class="table-responsive">
-                                    <table class="table-striped table">
-                                        <tr>
-
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>phone</th>
-                                            <th>roles</th>
-                                            <th>Created At</th>
-                                            <th>Action</th>
-                                        </tr>
-                                        @foreach ($users as $user)
+                                    <table class="table table-striped">
+                                        <thead>
                                             <tr>
-
-                                                <td>{{ $user->name }}
-                                                </td>
-                                                <td>
-                                                    {{ $user->email }}
-                                                </td>
-                                                <td>
-                                                    {{ $user->phone }}
-                                                </td>
-                                                <td>
-                                                    {{ $user->roles }}
-                                                </td>
-
-
-                                                <td>{{ $user->created_at }}</td>
-                                                <td>
-                                                    <div class="d-flex justify-content-center">
-                                                        <a href='{{ route('user.edit', $user->id) }}'
-                                                            class="btn btn-sm btn-info btn-icon">
-                                                            <i class="fas fa-edit"></i>
-                                                            Edit
-                                                        </a>
-
-                                                        <form action="{{ route('user.destroy', $user->id) }}" method="POST"
-                                                            class="ml-2">
-                                                            <input type="hidden" name="_method" value="DELETE" />
-                                                            <input type="hidden" name="_token"
-                                                                value="{{ csrf_token() }}" />
-                                                            <button class="btn btn-sm btn-danger btn-icon confirm-delete">
-                                                                <i class="fas fa-times"></i> Delete
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </td>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Phone</th>
+                                                <th>Role</th>
+                                                <th>Created At</th>
+                                                <th>Action</th>
                                             </tr>
-                                        @endforeach
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($users as $user)
+                                                <tr>
+                                                    <td>{{ $user->name }}</td>
+                                                    <td>{{ $user->email }}</td>
+                                                    <td>{{ $user->phone }}</td>
+                                                    <td>{{ $user->getRoleNames()->join(', ') }}</td> <!-- Mendapatkan nama role menggunakan Spatie -->
+                                                    <td>{{ $user->created_at->format('Y-m-d H:i') }}</td> <!-- Format waktu lebih baik -->
+                                                    <td>
+                                                        <div class="d-flex justify-content-center">
+                                                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-info btn-icon">
+                                                                <i class="fas fa-edit"></i> Edit
+                                                            </a>
 
-
+                                                            <form action="{{ route('user.destroy', $user->id) }}" method="POST" class="ml-2" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button class="btn btn-sm btn-danger btn-icon">
+                                                                    <i class="fas fa-times"></i> Delete
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
                                     </table>
                                 </div>
                                 <div class="float-right">
-                                    {{ $users->withQueryString()->links() }}
+                                    {{ $users->withQueryString()->links() }} <!-- Menampilkan pagination -->
                                 </div>
                             </div>
                         </div>
@@ -114,7 +99,7 @@
 @endsection
 
 @push('scripts')
-    <!-- JS Libraies -->
+    <!-- JS Libraries -->
     <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
 
     <!-- Page Specific JS File -->
